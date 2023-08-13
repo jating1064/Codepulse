@@ -1,8 +1,10 @@
 ﻿using CodePulse.API.Models.Domain;
 using CodePulse.API.Models.DTO;
 using CodePulse.API.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace CodePulse.API.Controllers
 {
@@ -20,6 +22,7 @@ namespace CodePulse.API.Controllers
             this.categoryRepository = categoryRepository;
         }
         //POST:{apibaseurl}/api/blogposts
+        [Authorize(Roles = "Writer")]
         [HttpPost]
         public async Task<IActionResult> CreateBlogPost(CreateBlogPostRequestDto request)
         {
@@ -135,7 +138,41 @@ namespace CodePulse.API.Controllers
             return Ok(response);
         }
 
+        //GET:{apibaseUrl}/api/blogPosts/{urlHandle}
+        [HttpGet]
+        [Route("{urlHandle}")]
+        public async Task<IActionResult> GetBlogPostByUrlHandle([FromRoute] string urlHandle)
+        {
+            //Get the BP from Repsository
+            var blogPost = await blogPostRepository.GetByUrlHandleAsync(urlHandle);
+            if (blogPost == null)
+            {
+                return NotFound();
+            }
+            //Convert DM to DTO
+            var response = new BlogPostDto
+            {
+                Id = blogPost.Id,
+                Author = blogPost.Author,
+                Title = blogPost.Title,
+                ShortDescription = blogPost.ShortDescription,
+                Content = blogPost.Content,
+                FeatureImageUrl = blogPost.FeaturedImageUrl,
+                UrlHandle = blogPost.UrlHandle,
+                PublishedDate = blogPost.PublishedDate,
+                IsVisible = blogPost.IsVisible,
+                Categories = blogPost.Categories.Select(x => new CategoryDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    UrlHandle = x.UrlHandle
+                }).ToList()
+            };
+            return Ok(response);
+        }
+
         //PUT:{apibaseUrl}/api/blogPosts/{id}
+        [Authorize(Roles = "Writer")]
         [HttpPut]
         [Route("{id:Guid}")]
         public async Task<IActionResult> UpdateBlogPostById([FromRoute] Guid id, [FromBody] UpdateBlogPostRequestDto request)
@@ -192,6 +229,35 @@ namespace CodePulse.API.Controllers
             };
             return Ok(response);
 
+        }
+
+        //Delete:{apibaseUrl}/api/blogposts/{id}
+        [Authorize(Roles = "Writer")]
+        [HttpDelete]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> DeleteBlogPost([FromRoute] Guid id)
+        {
+            //Call Repsoitory to Delete Method
+            var deletedBP= await blogPostRepository.DeleteAsync(id);
+            if(deletedBP == null) 
+            {  
+                return NotFound();
+            }
+
+            //Convert DM to DTO
+            var response = new BlogPostDto
+            {
+                Id = deletedBP.Id,
+                Author = deletedBP.Author,
+                Title = deletedBP.Title,
+                ShortDescription = deletedBP.ShortDescription,
+                Content = deletedBP.Content,
+                FeatureImageUrl = deletedBP.FeaturedImageUrl,
+                UrlHandle = deletedBP.UrlHandle,
+                PublishedDate = deletedBP.PublishedDate,
+                IsVisible = deletedBP.IsVisible,
+            };
+            return Ok(response);
         }
     }
 }

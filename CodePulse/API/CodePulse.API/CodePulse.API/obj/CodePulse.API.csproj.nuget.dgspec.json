@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jatin\\OneDrive\\Desktop\\API+Angular\\Udemy\\CodePulse\\API\\CodePulse.API\\CodePulse.API\\CodePulse.API.csproj": {}
+    "C:\\Users\\jatin\\OneDrive\\Desktop\\API+Angular\\Codepulse\\CodePulse\\API\\CodePulse.API\\CodePulse.API\\CodePulse.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jatin\\OneDrive\\Desktop\\API+Angular\\Udemy\\CodePulse\\API\\CodePulse.API\\CodePulse.API\\CodePulse.API.csproj": {
+    "C:\\Users\\jatin\\OneDrive\\Desktop\\API+Angular\\Codepulse\\CodePulse\\API\\CodePulse.API\\CodePulse.API\\CodePulse.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jatin\\OneDrive\\Desktop\\API+Angular\\Udemy\\CodePulse\\API\\CodePulse.API\\CodePulse.API\\CodePulse.API.csproj",
+        "projectUniqueName": "C:\\Users\\jatin\\OneDrive\\Desktop\\API+Angular\\Codepulse\\CodePulse\\API\\CodePulse.API\\CodePulse.API\\CodePulse.API.csproj",
         "projectName": "CodePulse.API",
-        "projectPath": "C:\\Users\\jatin\\OneDrive\\Desktop\\API+Angular\\Udemy\\CodePulse\\API\\CodePulse.API\\CodePulse.API\\CodePulse.API.csproj",
+        "projectPath": "C:\\Users\\jatin\\OneDrive\\Desktop\\API+Angular\\Codepulse\\CodePulse\\API\\CodePulse.API\\CodePulse.API\\CodePulse.API.csproj",
         "packagesPath": "C:\\Users\\jatin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jatin\\OneDrive\\Desktop\\API+Angular\\Udemy\\CodePulse\\API\\CodePulse.API\\CodePulse.API\\obj\\",
+        "outputPath": "C:\\Users\\jatin\\OneDrive\\Desktop\\API+Angular\\Codepulse\\CodePulse\\API\\CodePulse.API\\CodePulse.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -45,6 +45,14 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[7.0.9, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.9, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.5, )"
@@ -59,9 +67,17 @@
               "target": "Package",
               "version": "[7.0.8, )"
             },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[6.32.1, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.32.1, )"
             }
           },
           "imports": [
